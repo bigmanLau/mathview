@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+
+        <cn.izouxiang.bezierdemo.bezier.MathView
+            android:id="@+id/math_view"
+            android:layout_width="match_parent"
+            android:layout_height="144dp"
+            android:background="@mipmap/bg_map" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="13dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lv.3销售主管销售主管"
+                android:textColor="#ffffff"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="16dp"
+                android:text="升级攻略"
+                android:background="@drawable/shadow_circle"
+                android:gravity="center"
+                android:textColor="#ffffff"
+                android:textSize="10dp"
+                android:layout_marginTop="12dp"
+                />
+        </LinearLayout>
+
+    </FrameLayout>
+
+
+</RelativeLayout>
