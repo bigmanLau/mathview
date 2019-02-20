@@ -11,6 +11,7 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import java.util.HashMap;
@@ -64,6 +65,7 @@ public class MathView extends View {
      * 初始化定义域
      */
     private void initDf() {
+        Df.clear();
         for (float i = 0; i <= getMeasuredWidth(); i++) {
             Df.add(i);//初始化定义域
         }
@@ -87,6 +89,7 @@ public class MathView extends View {
      * 遍历定义域,将原像x和像f(x)加入映射表
      */
     private void map() {
+        funMap.clear();
         for (Float x : Df) {
             funMap.put(x, f(x));
         }
@@ -148,8 +151,7 @@ public class MathView extends View {
      * @param canvas 画笔
      */
     private void drawMap(Canvas canvas) {
-        initDf();
-        map();
+
         for (Float key : funMap.keySet()) {
             canvas.drawPoint(key, funMap.get(key).floatValue(), mPaint);
         }
@@ -179,20 +181,25 @@ public class MathView extends View {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         firstX = Float.valueOf(getMeasuredWidth() / 8);
         secondX = Float.valueOf(getMeasuredWidth() * 6 / 8);
+        initDf();
+        map();
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
         drawMap(canvas);
         drawshadowMap(canvas);
 //        drawTitle(canvas);
+
         drawProgress( canvas);
         drawPoints(canvas);
         drawTexts(canvas);
-        canvas.save();
-        canvas.translate(0, 0);
-        canvas.scale(1, -1);//y轴向上
-        canvas.restore();
     }
 
     /**
@@ -218,9 +225,9 @@ public class MathView extends View {
         int count = 0;
         float length = firstX + progress * (secondX - firstX);
         for (Float key : funMap.keySet()) {
-            if (count < length) {
+            Log.d("坐标","x="+key+"  y="+funMap.get(key).floatValue());
+            if (key <= length) {
                 canvas.drawPoint(key, funMap.get(key).floatValue(), mProgress);
-                count++;
             }
         }
 
